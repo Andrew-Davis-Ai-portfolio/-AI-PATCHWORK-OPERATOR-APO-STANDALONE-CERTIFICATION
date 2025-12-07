@@ -32,7 +32,7 @@
       <!-- COLUMN 1 — TASK -->
       <section class="apo-column">
         <section class="apo-card">
-          <h2>1. Pick a task scenario</h2>
+          <h2>1. Select a task scenario</h2>
           <label class="apo-label" for="task-select">Scenario</label>
           <select id="task-select">
             <option value="">Select a scenario…</option>
@@ -47,7 +47,7 @@
 
           <div class="apo-brief-block">
             <div class="apo-brief-header">
-              <h3>Task Brief</h3>
+              <h3>Task brief & criteria</h3>
               <button id="btn-play-brief" class="apo-btn ghost small" disabled>
                 ▶ Hear brief
               </button>
@@ -62,9 +62,17 @@
         <section class="apo-card small">
           <h3>How this level works</h3>
           <p class="apo-muted small">
-            You’ll draft a single clear prompt to GPT (or similar).
-            Once you’re satisfied, you <strong>lock</strong> it, copy it out,
-            and use it to build the feature. Then you return and self-assess.
+            Level&nbsp;1 measures how clearly you can direct an AI assistant to build a small,
+            well-defined feature. You will:
+          </p>
+          <ul class="apo-list small">
+            <li>Load a concrete task brief.</li>
+            <li>Draft a single, structured prompt to GPT (or similar).</li>
+            <li><strong>Lock</strong> the prompt and copy it out for implementation.</li>
+            <li>Return here to log your result and reflection.</li>
+          </ul>
+          <p class="apo-muted small">
+            The focus is not on typing code — it’s on <strong>specifying</strong> work precisely.
           </p>
         </section>
       </section>
@@ -74,8 +82,8 @@
         <section class="apo-card">
           <h2>2. Draft your prompt to GPT</h2>
           <p class="apo-muted small">
-            Imagine you’re giving instructions to a junior engineer that only sees text.
-            Be precise, calm, and complete.
+            Write as if you are briefing a junior engineer who only sees text.
+            Your job is to remove ambiguity, not to impress.
           </p>
 
           <label class="apo-label" for="prompt-input">Prompt draft</label>
@@ -86,22 +94,22 @@
           ></textarea>
 
           <div class="apo-checklist">
-            <p class="apo-label small">Before you lock:</p>
+            <p class="apo-label small">Before you lock, confirm you have:</p>
             <label class="apo-check">
               <input type="checkbox" id="chk-tech" />
-              <span>I clearly stated the tech stack (HTML/CSS/JS only, no frameworks).</span>
+              <span>I explicitly stated the tech stack (HTML/CSS/JS only, no frameworks).</span>
             </label>
             <label class="apo-check">
               <input type="checkbox" id="chk-files" />
-              <span>I asked for separate files (index.html, style.css, app.js if needed).</span>
+              <span>I requested separate files (index.html, style.css, app.js if needed).</span>
             </label>
             <label class="apo-check">
               <input type="checkbox" id="chk-behavior" />
-              <span>I described the visual behavior (responsive layout, hover states, etc.).</span>
+              <span>I defined the expected behavior (responsive layout, hover states, toggles, etc.).</span>
             </label>
             <label class="apo-check">
               <input type="checkbox" id="chk-constraints" />
-              <span>I stated all constraints (no external libs, no backend, etc.).</span>
+              <span>I stated all constraints (no external libraries, no backend, no frameworks).</span>
             </label>
           </div>
 
@@ -125,16 +133,26 @@
           </p>
 
           <label class="apo-label" for="result-notes">
-            Result snapshot (summary, link, or notes)
+            Result snapshot (summary)
           </label>
           <textarea
             id="result-notes"
-            rows="6"
-            placeholder="Example: 'Pricing card working on mobile and desktop. Slight spacing issue on small screens. Link to repo: ...'"
+            rows="5"
+            placeholder="Example: 'Pricing card working on mobile and desktop. Slight spacing issue on small screens.'"
           ></textarea>
 
+          <!-- NEW: Build link field -->
+          <label class="apo-label" for="build-link">
+            Link to build or repository <span>*</span>
+          </label>
+          <input
+            id="build-link"
+            type="url"
+            placeholder="https://github.com/username/repo or live demo URL"
+          />
+
           <div class="apo-selfcheck">
-            <p class="apo-label small">Self-check</p>
+            <p class="apo-label small">Self-check (honest, not theatrical)</p>
             <label class="apo-check">
               <input type="checkbox" id="chk-runs" />
               <span>It runs without obvious errors.</span>
@@ -154,7 +172,7 @@
           </label>
           <select id="iteration-count">
             <option value="">Select…</option>
-            <option value="1">1 — Nailed it first try</option>
+            <option value="1">1 — Nailed it on the first pass</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4-5">4–5</option>
@@ -162,12 +180,12 @@
           </select>
 
           <label class="apo-label" for="reflection">
-            Short reflection (where it got hard)
+            Short reflection (where it actually got hard)
           </label>
           <textarea
             id="reflection"
             rows="4"
-            placeholder="Example: I forgot to ask for responsive behavior, so I had to retro-fit that into later prompts."
+            placeholder="Example: I forgot to specify responsive behavior in the initial prompt, so I had to retrofit that into later iterations."
           ></textarea>
 
           <button id="btn-submit-attempt" class="apo-btn primary full">
@@ -187,7 +205,8 @@
             </button>
           </div>
           <p class="apo-muted small">
-            This is your patchwork breadcrumb trail. Instructors can use this to review how you actually work with GPT.
+            This is your patchwork trail. Instructors can review it to see how you
+            actually work with GPT — not just the final code.
           </p>
           <ul id="attempt-list" class="apo-attempts">
             <li class="apo-muted small">No attempts yet.</li>
@@ -204,30 +223,31 @@
 
   <script src="app.js"></script>
 
+  <!-- Ninja gate (shared with Flame Division stack) -->
   <script>
-  (function () {
-    const ACCESS_TOKEN = "FLAME_FDA_V1"; // must match gate.html
-    const STORAGE_KEY = "flame_fda_access";
+    (function () {
+      const ACCESS_TOKEN = "FLAME_FDA_V1"; // must match gate.html
+      const STORAGE_KEY = "flame_fda_access";
 
-    let current;
-    try {
-      current = sessionStorage.getItem(STORAGE_KEY);
-    } catch (err) {
-      current = null;
-    }
+      let current;
+      try {
+        current = sessionStorage.getItem(STORAGE_KEY);
+      } catch (err) {
+        current = null;
+      }
 
-    if (current !== ACCESS_TOKEN) {
-      // Get ONLY the filename (e.g. dojo.html or index.html)
-      var pathParts = window.location.pathname.split("/");
-      var fileName = pathParts[pathParts.length - 1] || "index.html";
+      if (current !== ACCESS_TOKEN) {
+        // Get ONLY the filename (e.g. dojo.html or index.html)
+        var pathParts = window.location.pathname.split("/");
+        var fileName = pathParts[pathParts.length - 1] || "index.html";
 
-      var query = window.location.search || "";
-      var target = encodeURIComponent(fileName + query);
+        var query = window.location.search || "";
+        var target = encodeURIComponent(fileName + query);
 
-      // Send them to gate in the SAME folder
-      window.location.href = "gate.html?target=" + target;
-    }
-  })();
-</script>
+        // Send them to gate in the SAME folder
+        window.location.href = "gate.html?target=" + target;
+      }
+    })();
+  </script>
 </body>
 </html>

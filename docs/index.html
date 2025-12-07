@@ -203,5 +203,31 @@
   </div>
 
   <script src="app.js"></script>
+
+  <script>
+  (function () {
+    const ACCESS_TOKEN = "FLAME_FDA_V1"; // must match gate.html
+    const STORAGE_KEY = "flame_fda_access";
+
+    let current;
+    try {
+      current = sessionStorage.getItem(STORAGE_KEY);
+    } catch (err) {
+      current = null;
+    }
+
+    if (current !== ACCESS_TOKEN) {
+      // Get ONLY the filename (e.g. dojo.html or index.html)
+      var pathParts = window.location.pathname.split("/");
+      var fileName = pathParts[pathParts.length - 1] || "index.html";
+
+      var query = window.location.search || "";
+      var target = encodeURIComponent(fileName + query);
+
+      // Send them to gate in the SAME folder
+      window.location.href = "gate.html?target=" + target;
+    }
+  })();
+</script>
 </body>
 </html>

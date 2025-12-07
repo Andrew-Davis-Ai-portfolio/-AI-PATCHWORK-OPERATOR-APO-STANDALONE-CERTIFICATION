@@ -1,1 +1,387 @@
+/* APO Patchwork Dojo — Level 1 (Structured Prompting) */
 
+:root {
+  --bg: #05060b;
+  --bg-elevated: #0d111a;
+  --bg-soft: #111727;
+  --border-subtle: #2a3146;
+  --accent: #fbbf24;
+  --accent-soft: #fde68a;
+  --accent-danger: #fb7185;
+  --accent-good: #4ade80;
+  --text-main: #f9fafb;
+  --text-muted: #9ca3af;
+  --text-soft: #6b7280;
+  --shadow-soft: 0 24px 48px rgba(0, 0, 0, 0.75);
+  --radius-lg: 18px;
+  --radius-md: 10px;
+  --radius-sm: 6px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #111827 0%, #020617 55%, #000 100%);
+  color: var(--text-main);
+}
+
+/* Layout */
+
+.apo-page {
+  min-height: 100vh;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 18px 14px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Header */
+
+.apo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(120deg, #020617, #020617 35%, #111827 100%);
+  border: 1px solid rgba(248, 250, 252, 0.08);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.75);
+}
+
+.apo-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.apo-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 30% 0, #4ade80, #1f2937 55%, #020617 100%);
+  box-shadow: 0 0 22px rgba(74, 222, 128, 0.5);
+  color: #fefce8;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 18px;
+}
+
+.apo-brand h1 {
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+}
+
+.apo-brand p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.apo-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Buttons & chips */
+
+.apo-btn {
+  border-radius: 999px;
+  border: 1px solid transparent;
+  padding: 7px 14px 8px;
+  font-size: 13px;
+  font-weight: 500;
+  background: transparent;
+  color: var(--text-main);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.14s ease, border-color 0.14s ease,
+    transform 0.05s ease, box-shadow 0.14s ease;
+}
+
+.apo-btn.primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: #111827;
+  border-color: rgba(251, 191, 36, 0.9);
+  box-shadow: 0 10px 24px rgba(251, 191, 36, 0.35);
+}
+
+.apo-btn.primary:hover {
+  transform: translateY(-0.5px);
+  box-shadow: 0 14px 30px rgba(251, 191, 36, 0.5);
+}
+
+.apo-btn.ghost {
+  border-color: rgba(148, 163, 184, 0.6);
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.apo-btn.ghost:hover {
+  background: rgba(30, 41, 59, 0.95);
+}
+
+.apo-btn.small {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+.apo-btn.full {
+  width: 100%;
+  justify-content: center;
+}
+
+.apo-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+  box-shadow: none;
+}
+
+/* Chip */
+
+.apo-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  font-size: 11px;
+  color: var(--text-muted);
+  background: radial-gradient(circle at left, #1e293b 0%, #020617 75%);
+}
+
+/* Main grid */
+
+.apo-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.1fr) minmax(0, 1.1fr);
+  gap: 14px;
+}
+
+.apo-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Cards */
+
+.apo-card {
+  background: radial-gradient(circle at top left, #111827 0%, #020617 55%);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  padding: 14px 16px 16px;
+  box-shadow: var(--shadow-soft);
+}
+
+.apo-card.small {
+  padding: 10px 14px 12px;
+}
+
+.apo-card h2,
+.apo-card h3 {
+  margin: 0 0 4px;
+}
+
+.apo-card p {
+  margin: 4px 0 6px;
+}
+
+.apo-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Text helpers */
+
+.apo-muted {
+  color: var(--text-muted);
+}
+
+.small {
+  font-size: 12px;
+}
+
+/* Labels & inputs */
+
+.apo-label {
+  display: block;
+  margin-top: 6px;
+  margin-bottom: 4px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+select,
+textarea {
+  width: 100%;
+  border-radius: var(--radius-md);
+  border: 1px solid #334155;
+  background: rgba(15, 23, 42, 0.85);
+  color: var(--text-main);
+  padding: 8px 10px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  resize: vertical;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease,
+    background-color 0.12s ease;
+}
+
+select:focus,
+textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.6);
+}
+
+/* Brief block */
+
+.apo-brief-block {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: var(--radius-md);
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(51, 65, 85, 0.9);
+}
+
+.apo-brief-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.apo-list {
+  margin: 6px 0 0;
+  padding-left: 18px;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+/* Checklist */
+
+.apo-checklist {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: var(--radius-md);
+  border: 1px dashed rgba(75, 85, 99, 0.8);
+  background: rgba(15, 23, 42, 0.7);
+}
+
+.apo-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 12px;
+  margin-bottom: 4px;
+  color: var(--text-soft);
+}
+
+.apo-check input[type="checkbox"] {
+  margin-top: 2px;
+}
+
+/* Status text */
+
+.apo-status {
+  margin-top: 8px;
+}
+
+.apo-status.good {
+  color: var(--accent-good);
+}
+
+.apo-status.bad {
+  color: var(--accent-danger);
+}
+
+/* Self-check block */
+
+.apo-selfcheck {
+  margin-top: 6px;
+  margin-bottom: 6px;
+  padding: 8px 10px;
+  border-radius: var(--radius-md);
+  border: 1px dashed rgba(55, 65, 81, 0.9);
+  background: rgba(15, 23, 42, 0.6);
+}
+
+/* Attempts list */
+
+.apo-attempts {
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.apo-attempts li {
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(51, 65, 85, 0.9);
+  background: rgba(15, 23, 42, 0.9);
+  padding: 6px 8px;
+  font-size: 12px;
+  color: var(--text-soft);
+  margin-bottom: 4px;
+}
+
+/* Footer */
+
+.apo-footer {
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(31, 41, 55, 0.9);
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 11px;
+  color: var(--text-soft);
+}
+
+/* Responsive */
+
+@media (max-width: 1024px) {
+  .apo-main {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 820px) {
+  .apo-main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .apo-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .apo-footer {
+    flex-direction: column;
+  }
+}

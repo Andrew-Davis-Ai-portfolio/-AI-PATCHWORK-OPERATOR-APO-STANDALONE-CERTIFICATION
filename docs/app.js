@@ -413,3 +413,73 @@
   setPromptStatus("Prompt not locked yet.", null);
   setAttemptStatus("No attempts logged yet.", null);
 })();
+
+// ----------------------------------------------------
+// CERTIFICATION NOTIFY PATCH
+// ----------------------------------------------------
+(function () {
+  const notifyBtn = document.getElementById("btn-notify-instructor");
+  const certStatus = document.getElementById("cert-status");
+  const submitBtn = document.getElementById("btn-submit-attempt");
+
+  if (!notifyBtn || !submitBtn) return;
+
+  // Enable notify after submission
+  submitBtn.addEventListener("click", () => {
+    notifyBtn.disabled = false;
+    notifyBtn.classList.remove("ghost");
+    notifyBtn.classList.add("primary");
+  });
+
+  notifyBtn.addEventListener("click", () => {
+    const payload = {
+      level: "APO Level 1 — Structured Prompting",
+      scenario: document.getElementById("task-select")?.value || "N/A",
+      buildLink: document.getElementById("build-link")?.value || "NOT PROVIDED",
+      iterations: document.getElementById("iteration-count")?.value || "N/A",
+      selfCheck: {
+        runs: document.getElementById("chk-runs")?.checked || false,
+        matches: document.getElementById("chk-matches")?.checked || false,
+        filesClean: document.getElementById("chk-files-clean")?.checked || false
+      },
+      reflection: document.getElementById("reflection")?.value || "",
+      timestamp: new Date().toISOString()
+    };
+
+    const message =
+`FLAME DIVISION ACADEMY — CERTIFICATION REVIEW REQUEST
+
+Level:
+${payload.level}
+
+Scenario:
+${payload.scenario}
+
+Build Link:
+${payload.buildLink}
+
+Iterations:
+${payload.iterations}
+
+Self-Check:
+- Runs: ${payload.selfCheck.runs}
+- Matches Brief: ${payload.selfCheck.matches}
+- Clean Files: ${payload.selfCheck.filesClean}
+
+Reflection:
+${payload.reflection}
+
+Submitted:
+${payload.timestamp}
+`;
+
+    try {
+      navigator.clipboard.writeText(message);
+      certStatus.textContent =
+        "✅ Certification request copied. Send this to your instructor.";
+    } catch (err) {
+      certStatus.textContent =
+        "⚠ Unable to copy automatically. Please manually share your log.";
+    }
+  });
+})();

@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Flame Division Academy — Access Gate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #05060b;
+      --card: #11131b;
+      --accent: #d4af37;
+      --accent-soft: rgba(212, 175, 55, 0.12);
+      --text: #f5f5f7;
+      --muted: #9da3b8;
+      --danger: #ff5555;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #141824 0, #05060b 55%);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .gate-shell {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .gate-card {
+      background: linear-gradient(145deg, #0b0c12, #05060b);
+      border-radius: 18px;
+      padding: 24px 20px 20px;
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.8),
+        0 0 0 1px rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      backdrop-filter: blur(18px);
+    }
+
+    .gate-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(212, 175, 55, 0.32);
+      background: radial-gradient(circle at top left, #25283b 0, #0b0c12 60%);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .gate-badge span {
+      font-size: 13px;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin: 0 0 6px;
+      letter-spacing: 0.03em;
+    }
+
+    .gate-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 0 0 18px;
+      line-height: 1.5;
+    }
+
+    .gate-alert {
+      font-size: 12px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(212, 175, 55, 0.06);
+      border: 1px solid rgba(212, 175, 55, 0.28);
+      color: var(--muted);
+      margin-bottom: 18px;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .gate-alert strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .gate-alert span.icon {
+      font-size: 16px;
+      margin-top: 2px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      background: #05060b;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    input[type="password"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.45);
+      background: #05060f;
+    }
+
+    .gate-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-top: 4px;
+    }
+
+    button {
+      appearance: none;
+      border: none;
+      cursor: pointer;
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: transform 0.12s ease, box-shadow 0.12s ease,
+        background 0.12s ease, color 0.12s ease;
+    }
+
+    .btn-primary {
+      background: radial-gradient(circle at top, #f5e3a5 0, #d4af37 40%, #8e6c18 100%);
+      color: #05060b;
+      box-shadow:
+        0 0 18px rgba(212, 175, 55, 0.55),
+        0 10px 25px rgba(0, 0, 0, 0.85);
+      flex: 1;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 0 22px rgba(212, 175, 55, 0.75),
+        0 14px 32px rgba(0, 0, 0, 0.9);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+      box-shadow:
+        0 0 10px rgba(212, 175, 55, 0.4),
+        0 6px 16px rgba(0, 0, 0, 0.8);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border-radius: 999px;
+      padding-inline: 10px;
+      font-size: 11px;
+    }
+
+    .btn-ghost:hover {
+      color: var(--accent);
+    }
+
+    .gate-footer {
+      margin-top: 14px;
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      opacity: 0.85;
+    }
+
+    .gate-footer span {
+      white-space: nowrap;
+    }
+
+    .error {
+      font-size: 12px;
+      color: var(--danger);
+      margin-top: 6px;
+      min-height: 16px;
+    }
+
+    @media (max-width: 480px) {
+      .gate-card {
+        padding: 20px 16px 16px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+
+      .gate-sub {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="gate-shell">
+    <div class="gate-card">
+      <div class="gate-badge">
+        <span>🔥</span> Flame Division Academy · Access Gate
+      </div>
+      <h1>Enter Training Facility</h1>
+      <p class="gate-sub">
+        This environment is restricted to enrolled students, partners, and verified reviewers.
+        Human confirmation is required before systems are exposed.
+      </p>
+
+      <div class="gate-alert">
+        <span class="icon">⚠️</span>
+        <div>
+          <strong>Private Curriculum</strong><br />
+          If you reached this page without an invite, stop here. Request access through the official
+          Flame Division Academy channels.
+        </div>
+      </div>
+
+      <form id="gate-form">
+        <div class="field">
+          <label for="access-key">Access Key</label>
+          <input
+            type="password"
+            id="access-key"
+            autocomplete="off"
+            placeholder="Enter academy access key"
+          />
+        </div>
+
+        <div class="gate-actions">
+          <button type="submit" class="btn-primary">
+            <span>Unlock Facility</span> <span>🧬</span>
+          </button>
+          <button type="button" class="btn-ghost" id="back-btn">
+            Back to Public Page
+          </button>
+        </div>
+
+        <div id="error" class="error"></div>
+      </form>
+
+      <div class="gate-footer">
+        <span>Human-in-the-loop verified.</span>
+        <span>IAIE Mode · Read-only until certified.</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 🚪 CONFIG — EDIT THIS FOR EACH REPO IF YOU WANT
+    const ACCESS_TOKEN = "FLAME_FDA_V1"; // <-- change this when you rotate keys
+    const STORAGE_KEY = "flame_fda_access";
+
+    // Default page to enter AFTER unlocking (edit per repo)
+    // e.g. "index.html", "dojo.html", "home.html"
+    const DEFAULT_TARGET = "index.html";
+
+    function getQueryParam(name) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name);
+    }
+
+    document.getElementById("gate-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const input = document.getElementById("access-key");
+      const errorBox = document.getElementById("error");
+      const entered = (input.value || "").trim();
+
+      if (!entered) {
+        errorBox.textContent = "Access key is required.";
+        return;
+      }
+
+      if (entered !== ACCESS_TOKEN) {
+        errorBox.textContent = "Invalid key. Verify your academy invite and try again.";
+        input.value = "";
+        input.focus();
+        return;
+      }
+
+      // ✅ Grant access for this browser session
+      try {
+        sessionStorage.setItem(STORAGE_KEY, ACCESS_TOKEN);
+      } catch (err) {
+        console.warn("Session storage not available:", err);
+      }
+
+      // Redirect to target page if provided, otherwise to default
+      const target = getQueryParam("target") || DEFAULT_TARGET;
+      window.location.href = target;
+    });
+
+    document.getElementById("back-btn").addEventListener("click", function () {
+      // Change this if you have a specific public landing page
+      // e.g. window.location.href = "https://andrew-davis-ai-portfolio.github.io/Flame-Division-Pricing/";
+      window.location.href = "./";
+    });
+  </script>
+</body>
+</html>

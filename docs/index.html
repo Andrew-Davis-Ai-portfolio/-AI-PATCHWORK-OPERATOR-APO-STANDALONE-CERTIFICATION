@@ -1,1 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>APO Patchwork Dojo — Level 1: Structured Prompting</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="apo-page">
+    <!-- HEADER -->
+    <header class="apo-header">
+      <div class="apo-brand">
+        <div class="apo-mark">APO</div>
+        <div>
+          <h1>Patchwork Dojo — Level 1</h1>
+          <p>Structured Prompting · AI Patchwork Operator Certification</p>
+        </div>
+      </div>
+      <div class="apo-header-actions">
+        <button id="btn-tts-toggle" class="apo-btn ghost small">
+          🔊 TTS: ON
+        </button>
+        <span id="session-state" class="apo-chip">
+          STATE: Idle · No task loaded
+        </span>
+      </div>
+    </header>
 
+    <!-- MAIN GRID -->
+    <main class="apo-main">
+      <!-- COLUMN 1 — TASK -->
+      <section class="apo-column">
+        <section class="apo-card">
+          <h2>1. Pick a task scenario</h2>
+          <label class="apo-label" for="task-select">Scenario</label>
+          <select id="task-select">
+            <option value="">Select a scenario…</option>
+            <option value="pricing-card">Simple Pricing Card (HTML/CSS)</option>
+            <option value="login-form">Login Form UI (HTML/CSS)</option>
+            <option value="faq-accordion">FAQ Accordion (HTML/CSS/JS)</option>
+          </select>
+
+          <button id="btn-load-task" class="apo-btn primary full">
+            Load Task Brief
+          </button>
+
+          <div class="apo-brief-block">
+            <div class="apo-brief-header">
+              <h3>Task Brief</h3>
+              <button id="btn-play-brief" class="apo-btn ghost small" disabled>
+                ▶ Hear brief
+              </button>
+            </div>
+            <p id="task-brief" class="apo-muted">
+              Choose a scenario to see the exact acceptance criteria you’re working with.
+            </p>
+            <ul id="task-criteria" class="apo-list"></ul>
+          </div>
+        </section>
+
+        <section class="apo-card small">
+          <h3>How this level works</h3>
+          <p class="apo-muted small">
+            You’ll draft a single clear prompt to GPT (or similar).
+            Once you’re satisfied, you <strong>lock</strong> it, copy it out,
+            and use it to build the feature. Then you return and self-assess.
+          </p>
+        </section>
+      </section>
+
+      <!-- COLUMN 2 — PROMPT -->
+      <section class="apo-column">
+        <section class="apo-card">
+          <h2>2. Draft your prompt to GPT</h2>
+          <p class="apo-muted small">
+            Imagine you’re giving instructions to a junior engineer that only sees text.
+            Be precise, calm, and complete.
+          </p>
+
+          <label class="apo-label" for="prompt-input">Prompt draft</label>
+          <textarea
+            id="prompt-input"
+            rows="10"
+            placeholder="Describe exactly what you want GPT to build: tech stack (HTML/CSS/JS), file separation, layout behavior, constraints (no frameworks), and visual details."
+          ></textarea>
+
+          <div class="apo-checklist">
+            <p class="apo-label small">Before you lock:</p>
+            <label class="apo-check">
+              <input type="checkbox" id="chk-tech" />
+              <span>I clearly stated the tech stack (HTML/CSS/JS only, no frameworks).</span>
+            </label>
+            <label class="apo-check">
+              <input type="checkbox" id="chk-files" />
+              <span>I asked for separate files (index.html, style.css, app.js if needed).</span>
+            </label>
+            <label class="apo-check">
+              <input type="checkbox" id="chk-behavior" />
+              <span>I described the visual behavior (responsive layout, hover states, etc.).</span>
+            </label>
+            <label class="apo-check">
+              <input type="checkbox" id="chk-constraints" />
+              <span>I stated all constraints (no external libs, no backend, etc.).</span>
+            </label>
+          </div>
+
+          <button id="btn-lock-prompt" class="apo-btn primary full">
+            ✅ Lock Prompt & Copy to Clipboard
+          </button>
+
+          <p id="prompt-status" class="apo-status small apo-muted">
+            Prompt not locked yet.
+          </p>
+        </section>
+      </section>
+
+      <!-- COLUMN 3 — RESULT & REFLECTION -->
+      <section class="apo-column">
+        <section class="apo-card">
+          <h2>3. Log your attempt</h2>
+          <p class="apo-muted small">
+            After you’ve used GPT and tested your code, record the outcome here.
+            This log is for <strong>you and your instructor</strong>, not for show.
+          </p>
+
+          <label class="apo-label" for="result-notes">
+            Result snapshot (summary, link, or notes)
+          </label>
+          <textarea
+            id="result-notes"
+            rows="6"
+            placeholder="Example: 'Pricing card working on mobile and desktop. Slight spacing issue on small screens. Link to repo: ...'"
+          ></textarea>
+
+          <div class="apo-selfcheck">
+            <p class="apo-label small">Self-check</p>
+            <label class="apo-check">
+              <input type="checkbox" id="chk-runs" />
+              <span>It runs without obvious errors.</span>
+            </label>
+            <label class="apo-check">
+              <input type="checkbox" id="chk-matches" />
+              <span>It matches the brief’s criteria.</span>
+            </label>
+            <label class="apo-check">
+              <input type="checkbox" id="chk-files-clean" />
+              <span>File separation is clean and understandable.</span>
+            </label>
+          </div>
+
+          <label class="apo-label" for="iteration-count">
+            How many prompt iterations did it take?
+          </label>
+          <select id="iteration-count">
+            <option value="">Select…</option>
+            <option value="1">1 — Nailed it first try</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4-5">4–5</option>
+            <option value="6-plus">6+ (I was wrestling with it)</option>
+          </select>
+
+          <label class="apo-label" for="reflection">
+            Short reflection (where it got hard)
+          </label>
+          <textarea
+            id="reflection"
+            rows="4"
+            placeholder="Example: I forgot to ask for responsive behavior, so I had to retro-fit that into later prompts."
+          ></textarea>
+
+          <button id="btn-submit-attempt" class="apo-btn primary full">
+            Submit Level 1 Attempt (Local Log)
+          </button>
+
+          <p id="attempt-status" class="apo-status small">
+            No attempts logged yet.
+          </p>
+        </section>
+
+        <section class="apo-card small">
+          <div class="apo-card-header">
+            <h3>Attempt history (this browser)</h3>
+            <button id="btn-copy-log" class="apo-btn ghost small">
+              📋 Copy log
+            </button>
+          </div>
+          <p class="apo-muted small">
+            This is your patchwork breadcrumb trail. Instructors can use this to review how you actually work with GPT.
+          </p>
+          <ul id="attempt-list" class="apo-attempts">
+            <li class="apo-muted small">No attempts yet.</li>
+          </ul>
+        </section>
+      </section>
+    </main>
+
+    <footer class="apo-footer">
+      <span>Flame Division Academy · AI Patchwork Operator Certification · Level 1</span>
+      <span>Local-only · No backend · Real workflow practice</span>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
